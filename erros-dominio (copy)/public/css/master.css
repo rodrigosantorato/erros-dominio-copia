@@ -1,0 +1,58 @@
+.form-group{
+    justify-content: flex-start;
+    background-color: #fff;
+    border-radius: 1rem;
+    margin: 0 auto;
+    max-width: 500px;
+    padding: 2rem;
+    width: 100%;
+}
+.title{
+    justify-content: center;
+    margin-left: 36px;
+    margin-right: 280px;
+    margin-top: 20px;
+}
+.custom-file{
+    margin-top: 15px;
+    margin-bottom: 23px;
+    border-radius:5px;
+}
+.btn-outline-primary{
+    margin-top: 17px;
+    margin-bottom: 25px;
+}
+.custom-file-input:lang(en)~.custom-file-label::after {
+    content: "Escolher";
+}
+.shadow-nohover {
+    box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+    transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.card {
+    background-color: rgb(220,220,240);
+    margin-left: 50px;
+    margin-right: 70px;
+    width: 100%;
+    margin-bottom: 24px;
+}
+.card-text{
+    font-size: 18px;
+    margin-left: 12px;
+    margin-right: 14px;
+    margin-top: 4px;
+}
+.returnbtn{
+    margin-left: 36px;
+    margin-bottom: 10px;
+}
+.btn-enviar{
+    float: right;
+}
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width:100%;
+    height:auto;
+}

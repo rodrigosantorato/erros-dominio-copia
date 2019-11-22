@@ -1,0 +1,84 @@
+####
+# ATTENTION:
+# Replace all occurrences of erros-dominio with your project's name.
+####
+
+# v3 syntax
+version: '3'
+
+# Named volumes
+volumes:
+  # Postgres Data
+  erros-dominio-postgres-data:
+    driver: local
+
+  # MySQL Data
+  erros-dominio-mysql-data:
+    driver: local
+
+  # Redis Data
+  erros-dominio-redis-data:
+    driver: local
+
+services:
+  # Postgres (11)
+  postgres:
+    image: postgres:11
+    container_name: erros-dominio-postgres
+    volumes:
+      - erros-dominio-postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=erros-dominio
+      - POSTGRES_DB=erros-dominio
+      - POSTGRES_USER=erros-dominio
+
+  # MySQL (5.7)
+  mysql:
+    image: mysql:5.7
+    container_name: erros-dominio-mysql
+    volumes:
+      - erros-dominio-mysql-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=erros-dominio
+      - MYSQL_DATABASE=erros-dominio
+      - MYSQL_USER=erros-dominio
+      - MYSQL_PASSWORD=erros-dominio
+
+  # Redis
+  cache:
+    image: redis:4.0
+    container_name: erros-dominio-redis
+    command: --appendonly yes
+    volumes:
+      - erros-dominio-redis-data:/data
+    ports:
+      - "6379:6379"
+
+  # PHP (with Nginx)
+  app:
+    image: ambientum/php:7.3-nginx
+    container_name: erros-dominio-app
+    volumes:
+      - .:/var/www/app
+    ports:
+      - "8080:8080"
+      - "8083:8083"
+    links:
+      - postgres
+      - mysql
+      - cache
+
+  # Laravel Queues
+  queue:
+    image: ambientum/php:7.3
+    container_name: erros-dominio-queue
+    command: php artisan queue:listen
+    volumes:
+      - .:/var/www/app
+    links:
+      - mysql
+      - cache
